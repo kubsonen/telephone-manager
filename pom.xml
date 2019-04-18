@@ -15,9 +15,40 @@
         <version>2.1.1.RELEASE</version>
     </parent>
 
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>dbPath</name>
+                    <value>windows</value>
+                </property>
+            </activation>
+            <properties>
+                <database.location>D:/japp/telephone-manager/dbo</database.location>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <property>
+                    <name>dbPath</name>
+                    <value>linux</value>
+                </property>
+            </activation>
+            <properties>
+                <database.location>D:/japp/telephone-manager/dbo</database.location>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
         <lombok.version>1.18.0</lombok.version>
         <mysql.driver.version>8.0.13</mysql.driver.version>
+        <derby.version>10.14.2.0</derby.version>
+
     </properties>
 
     <dependencies>
@@ -49,6 +80,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
