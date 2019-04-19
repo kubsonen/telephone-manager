@@ -7,4 +7,5 @@ import pl.jj.app.entity.Dictionary;
  * @author JNartowicz
  */
 public interface RepositoryDictionary extends CrudRepository<Dictionary, Long> {
+    Dictionary findByName(String name);
 }

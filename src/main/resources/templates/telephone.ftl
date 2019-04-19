@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -41,24 +41,41 @@
     <hr class="my-4">
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="countInPage">Rows on page</label>
-                    <select id="countInPage" class="form-control w-100">
-                        <option>Default select</option>
-                    </select>
+        <form action="" method="get" id="changeRowsOnPage">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="countInPage">Rows on page</label>
+                        <select id="countInPage" name="${ADD_MODEL_TELEPHONE_ATTR_ROWS_ON_PAGE}" class="form-control w-100">
+                            <#if ROWS_ON_PAGE??>
+                                <#list ROWS_ON_PAGE as row>
+                                    <option value="${row.name}"
+                                        <#if ACTUAL_ROWS_ON_PAGE?? && ACTUAL_ROWS_ON_PAGE == row.name>
+                                            selected
+                                        </#if>>${row.name}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="showBy">Show by</label>
+                        <select id="showBy" name="${ADD_MODEL_TELEPHONE_ATTR_COUNTER_MODE}" class="form-control w-100">
+                            <#if ENUM_SHOW_MODE_VALUES??>
+                                <#list ENUM_SHOW_MODE_VALUES as mode>
+                                    <option value="${mode.name()}"
+                                        <#if ACTUAL_MODE?? && ACTUAL_MODE == mode>
+                                            selected
+                                        </#if>>${mode.name()}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="showBy">Show by</label>
-                    <select id="showBy" class="form-control w-100">
-                        <option>Default select</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+            <input type="hidden" name="${ADD_MODEL_TELEPHONE_ATTR_ACTUAL_PAGE}" value="1">
+        </form>
     </div>
 
     <!-- last phones -->
@@ -173,5 +190,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
 </body>
 </html>

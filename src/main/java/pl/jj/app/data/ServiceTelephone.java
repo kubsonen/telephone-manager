@@ -34,4 +34,9 @@ public class ServiceTelephone {
         repositoryTelephone.deleteById(id);
     }
 
+    @Transactional
+    public void deleteAllTelephones(){
+        repositoryTelephone.deleteAll();
+    }
+
 }

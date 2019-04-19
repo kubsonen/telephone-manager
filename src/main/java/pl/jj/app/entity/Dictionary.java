@@ -15,9 +15,8 @@ import java.util.Set;
 @Table(name = "dictionary")
 public class Dictionary extends CommonEntity{
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
-
 
     @Column(name = "value")
     private String value;
@@ -26,7 +25,9 @@ public class Dictionary extends CommonEntity{
     @JoinColumn(name = "parent_id")
     private Dictionary parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true)
     private Set<Dictionary> children;
 
 }
