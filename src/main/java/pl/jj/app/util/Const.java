@@ -3,9 +3,14 @@ package pl.jj.app.util;
 import com.sun.org.apache.bcel.internal.generic.FADD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.util.resources.LocaleData;
 
 import java.lang.reflect.Field;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,5 +66,59 @@ public final class Const {
         }
         return fields;
     }
+
+    /**
+     * Changes the date inputted in argument.
+     * @param end - if parameter is set to true, time will be change to 23:59:59 otherwise to 00:00:00
+     */
+    public static final Date modifyTimeOfDate(Date date, boolean end){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, end ? 23 : 0);
+        calendar.set(Calendar.MINUTE, end ? 59 : 0);
+        calendar.set(Calendar.SECOND, end ? 59 : 0);
+        return calendar.getTime();
+    }
+
+    /**
+     * Find a start day of the week
+     * @param date - input date
+     * @return - date which will be a first date of the week
+     */
+    public static final Date getFirstDayOfTheWeek(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            calendar.add(Calendar.DATE, -1);
+        }
+        return calendar.getTime();
+    }
+
+    /**
+     * Return date which will be the first date of the month
+     * @param date - input date
+     * @return - first day of the month
+     */
+    public static final Date getFirstDayOfTheMonth(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
+    }
+
+    /**
+     * Return date which will be the first date of the year
+     * @param date - input date
+     * @return - first date of the year
+     */
+    public static final Date getFirstDayOfTheYear(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
+    }
+
+
 
 }

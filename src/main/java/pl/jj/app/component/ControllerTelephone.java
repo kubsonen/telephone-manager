@@ -52,9 +52,9 @@ public class ControllerTelephone {
         if(Const.dicNeedToCreate()) serviceDictionary.initializeDefaultDictionaries();
         //Set actual select values
         ShowMode showMode = resolveCounterMode(model, counterMode);
-        Integer integer = resolveRowsOnPage(model, rowsOnPage);
+        Integer rop = resolveRowsOnPage(model, rowsOnPage);
 
-        model.addAttribute(TELEPHONES_ATTR, serviceTelephone.findTop10Telephones());
+        model.addAttribute(TELEPHONES_ATTR, serviceTelephone.getFilteredTelephones(null, showMode, rop));
         return "telephone";
     }
 

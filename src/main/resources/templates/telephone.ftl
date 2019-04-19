@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="countInPage">Rows on page</label>
+                        <label for="countInPage"><b>Rows on page</b></label>
                         <select id="countInPage" name="${ADD_MODEL_TELEPHONE_ATTR_ROWS_ON_PAGE}" class="form-control w-100">
                             <#if ROWS_ON_PAGE??>
                                 <#list ROWS_ON_PAGE as row>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="showBy">Show by</label>
+                        <label for="showBy"><b>Show by</b></label>
                         <select id="showBy" name="${ADD_MODEL_TELEPHONE_ATTR_COUNTER_MODE}" class="form-control w-100">
                             <#if ENUM_SHOW_MODE_VALUES??>
                                 <#list ENUM_SHOW_MODE_VALUES as mode>

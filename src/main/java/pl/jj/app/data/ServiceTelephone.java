@@ -3,6 +3,8 @@ package pl.jj.app.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jj.app.entity.Telephone;
+import pl.jj.app.util.Const;
+import pl.jj.app.util.ShowMode;
 
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -37,6 +39,34 @@ public class ServiceTelephone {
     @Transactional
     public void deleteAllTelephones(){
         repositoryTelephone.deleteAll();
+    }
+
+    @Transactional
+    public List<Telephone> getFilteredTelephones(Integer page, ShowMode showMode, Integer showsOnPage){
+
+        //End date
+        Date endDate = Const.modifyTimeOfDate(new Date(), true);
+        Date startDate = null;
+
+
+        switch (showMode){
+            case DAY:
+                startDate = Const.modifyTimeOfDate(endDate, true);
+                break;
+            case WEEK:
+
+                break;
+            case MONTH:
+
+                break;
+            case YEAR:
+
+                break;
+        }
+
+
+        return repositoryTelephone.filterTelephones(showsOnPage);
+
     }
 
 }
