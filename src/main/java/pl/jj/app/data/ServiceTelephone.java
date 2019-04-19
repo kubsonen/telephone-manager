@@ -7,6 +7,7 @@ import pl.jj.app.util.Const;
 import pl.jj.app.util.ShowMode;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,24 +49,24 @@ public class ServiceTelephone {
         Date endDate = Const.modifyTimeOfDate(new Date(), true);
         Date startDate = null;
 
-
         switch (showMode){
             case DAY:
-                startDate = Const.modifyTimeOfDate(endDate, true);
+                startDate = Const.modifyTimeOfDate(endDate, false);
                 break;
             case WEEK:
-
+                startDate = Const.modifyTimeOfDate(Const.getFirstDayOfTheWeek(endDate), false);
                 break;
             case MONTH:
-
+                startDate = Const.modifyTimeOfDate(Const.getFirstDayOfTheMonth(endDate), false);
                 break;
             case YEAR:
-
+                startDate = Const.modifyTimeOfDate(Const.getFirstDayOfTheYear(endDate), false);
                 break;
+            default:
+                return new ArrayList<>();
         }
 
-
-        return repositoryTelephone.filterTelephones(showsOnPage);
+        return repositoryTelephone.filterTelephones(showsOnPage, startDate, endDate);
 
     }
 

@@ -26,12 +26,15 @@ public class Tests {
     }
 
     @Test
-    public void testGetterFirstDateOfTheWeek(){
+    public void testGetterFirstDays(){
 
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         logger.info("Original: " + simpleDateFormat.format(date));
         logger.info("First day of the week: " + simpleDateFormat.format(Const.getFirstDayOfTheWeek(date)));
+        logger.info("First day of the month: " + simpleDateFormat.format(Const.getFirstDayOfTheMonth(date)));
+        logger.info("First day of the year: " + simpleDateFormat.format(Const.getFirstDayOfTheYear(date)));
+
 
     }
 

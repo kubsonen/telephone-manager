@@ -114,7 +114,7 @@ public final class Const {
     public static final Date getFirstDayOfTheYear(Date date){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.set(Calendar.MONTH, 1);
+        calendar.set(Calendar.MONTH, 0);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         return calendar.getTime();
     }
