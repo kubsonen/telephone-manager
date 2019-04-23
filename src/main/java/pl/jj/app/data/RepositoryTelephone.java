@@ -14,15 +14,24 @@ import java.util.List;
 public interface RepositoryTelephone extends CrudRepository<Telephone, Long> {
     List<Telephone> findTop10ByOrderByIdDesc();
 
-    String filterTelephoneQuery = "" +
-            " select * from telephone t " +
+    String filterTelephoneBaseQuery = "" +
+            " from (" +
+            " select ROW_NUMBER() OVER () AS R, t.* from (select * from telephone t " +
             " where t.phone_date > :createTimeStart and t.phone_date < :createTimeEnd " +
-            " order by t.phone_date desc FETCH FIRST :rowsCount ROWS ONLY ";
+            " order by t.phone_date desc) as t ";
 
-    @Query(value = filterTelephoneQuery, nativeQuery = true)
-    List<Telephone> filterTelephones(@Param("rowsCount") Integer rowsCount,
-                                     @Param("createTimeStart") Date startTime,
-                                     @Param("createTimeEnd") Date endTime);
+    String filterTelephoneLimitRowQuery = " ) as tr " +
+            " where R >= :downLimit and R <= :upLimit";
+
+    @Query(value = "select count(*) " + filterTelephoneBaseQuery + ") as tr", nativeQuery = true)
+    int getCountFilterTelephones(@Param("createTimeStart") Date startTime,
+                                 @Param("createTimeEnd") Date endTime);
+
+    @Query(value = "select * " + filterTelephoneBaseQuery + filterTelephoneLimitRowQuery, nativeQuery = true)
+    List<Telephone> filterTelephones(@Param("createTimeStart") Date startTime,
+                                     @Param("createTimeEnd") Date endTime,
+                                     @Param("downLimit") Integer downLimit,
+                                     @Param("upLimit") Integer upLimit);
 
 
 }

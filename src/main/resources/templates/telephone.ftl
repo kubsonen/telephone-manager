@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="${ADD_MODEL_TELEPHONE_ATTR_ACTUAL_PAGE}" value="1">
+            <input type="hidden" name="${ADD_MODEL_TELEPHONE_ATTR_ACTUAL_PAGE}" id="actualPageFormField" value="1">
         </form>
     </div>
 
@@ -84,6 +84,9 @@
             <div class="row mt-4">
                 <div class="col-12">
                     <label><b>Last telephones</b></label>
+                    <#if TELEPHONES_QUANTITY??>
+                        <br><label>Total quantity: ${TELEPHONES_QUANTITY}</label>
+                    </#if>
                 </div>
             </div>
             <div class="row mt-4">
@@ -92,7 +95,7 @@
                     <table class="table table-sm">
                         <thead>
                         <tr>
-                            <th scope="col">Id</th>
+                            <th scope="col">Ordinal number</th>
                             <th scope="col">Add date</th>
                             <th scope="col">Note</th>
                             <th scope="col"></th>
@@ -102,10 +105,10 @@
 
                         <#list telephones as t>
                             <tr>
-                                <th>${t.id}</th>
+                                <th>${t.ordinalNumber}</th>
                                 <td>${t.phoneDate}</td>
                                 <td>${t.note}</td>
-                                <td><a href="/telephone/delete/${t.id}" class="btn btn-danger" role="button" aria-pressed="true">Usuń</a></td>
+                                <td><a href="/delete/${t.id?c}" class="btn btn-danger" role="button" aria-pressed="true">Delete</a></td>
                             </tr>
                         </#list>
 
@@ -115,16 +118,29 @@
 
                     <nav aria-label="Telephones navigation">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+
+                            <li
+                                <#if PAGE_PREVIOUS_ATTRIBUTE??>
+                                    class="page-item"
+                                <#else>
+                                    class="page-item disabled"
+                                </#if>>
+                                <a class="page-link" <#if PAGE_PREVIOUS_ATTRIBUTE??> onclick="nextPage(${PAGE_PREVIOUS_ATTRIBUTE})" </#if> tabindex="-1">
+                                    Previous
+                                </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
                             <li class="page-item active">
-                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                <div class="page-link">${(PAGE_ACTUAL_ATTRIBUTE)!''} / ${(PAGE_COUNT_ATTRIBUTE)!''}<span class="sr-only">(current)</span></div>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
+                            <li
+                                <#if PAGE_NEXT_ATTRIBUTE??>
+                                    class="page-item"
+                                <#else>
+                                    class="page-item disabled"
+                                </#if>>
+                                <a class="page-link" <#if PAGE_NEXT_ATTRIBUTE??> onclick="nextPage(${PAGE_NEXT_ATTRIBUTE})" </#if> tabindex="-1">
+                                    Next
+                                </a>
                             </li>
                         </ul>
                     </nav>
@@ -139,51 +155,8 @@
 
     <hr class="my-4">
 
-    <!-- stats -->
-    <div class="container">
-        <form>
-            <div class="row mt-4">
-                <div class="col-12">
-                    <label><b>Stats</b></label>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="form-group">
-                        <table class="table table-sm">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nazwa</th>
-                                <th scope="col">Wartość</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Ilość ogółem</td>
-                                <td>352</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Dziś</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>W ostatnim miesiącu</td>
-                                <td>56</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- col -->
-            </div>
-            <!-- row -->
-        </form>
-    </div>
-    <!-- container -->
+    <br>
+    <br>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

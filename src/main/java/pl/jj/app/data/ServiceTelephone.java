@@ -43,12 +43,21 @@ public class ServiceTelephone {
     }
 
     @Transactional
-    public List<Telephone> getFilteredTelephones(Integer page, ShowMode showMode, Integer showsOnPage){
-
-        //End date
+    public List<Telephone> getFilteredTelephones(Integer page, ShowMode showMode, Integer showsOnPage, Integer downLimit, Integer upLimit){
         Date endDate = Const.modifyTimeOfDate(new Date(), true);
-        Date startDate = null;
+        Date startDate = getStartDateByShowMode(showMode, endDate);
+        return repositoryTelephone.filterTelephones( startDate, endDate, downLimit, upLimit);
+    }
 
+    @Transactional
+    public int getCountOfFilteredTelephones(ShowMode showMode){
+        Date endDate = Const.modifyTimeOfDate(new Date(), true);
+        Date startDate = getStartDateByShowMode(showMode, endDate);
+        return repositoryTelephone.getCountFilterTelephones(startDate, endDate);
+    }
+
+    private Date getStartDateByShowMode(ShowMode showMode, Date endDate){
+        Date startDate = null;
         switch (showMode){
             case DAY:
                 startDate = Const.modifyTimeOfDate(endDate, false);
@@ -63,11 +72,9 @@ public class ServiceTelephone {
                 startDate = Const.modifyTimeOfDate(Const.getFirstDayOfTheYear(endDate), false);
                 break;
             default:
-                return new ArrayList<>();
+                return null;
         }
-
-        return repositoryTelephone.filterTelephones(showsOnPage, startDate, endDate);
-
+        return startDate;
     }
 
 }

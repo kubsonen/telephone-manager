@@ -39,7 +39,7 @@
                 </property>
             </activation>
             <properties>
-                <database.location>D:/japp/telephone-manager/dbo</database.location>
+                <database.location>/srv/telephone-manager/dbo</database.location>
             </properties>
         </profile>
     </profiles>
@@ -48,7 +48,6 @@
         <lombok.version>1.18.0</lombok.version>
         <mysql.driver.version>8.0.13</mysql.driver.version>
         <derby.version>10.14.2.0</derby.version>
-
     </properties>
 
     <dependencies>

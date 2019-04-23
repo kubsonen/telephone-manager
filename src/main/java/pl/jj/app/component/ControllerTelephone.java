@@ -1,18 +1,19 @@
 package pl.jj.app.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.jj.app.data.RepositoryDictionary;
 import pl.jj.app.data.ServiceDictionary;
 import pl.jj.app.data.ServiceTelephone;
-import pl.jj.app.entity.Dictionary;
 import pl.jj.app.entity.Telephone;
 import pl.jj.app.util.Const;
 import pl.jj.app.util.InsertDictionary;
 import pl.jj.app.util.ShowMode;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author JNartowicz
@@ -21,7 +22,7 @@ import pl.jj.app.util.ShowMode;
 @RequestMapping(ControllerTelephone.TELEPHONE_PATH)
 public class ControllerTelephone {
 
-    public static final String TELEPHONE_PATH = "/telephone";
+    public static final String TELEPHONE_PATH = "";
     public static final String TELEPHONE_DELETE_PATH = "/delete";
     public static final String TELEPHONES_ATTR = "telephones";
 
@@ -31,6 +32,13 @@ public class ControllerTelephone {
 
     private static final String ACTUAL_MODE_ATTRIBUTE = "ACTUAL_MODE";
     private static final String ACTUAL_ROWS_ON_PAGE_ATTRIBUTE = "ACTUAL_ROWS_ON_PAGE";
+
+    private static final String PAGE_NEXT_ATTRIBUTE = "PAGE_NEXT_ATTRIBUTE";
+    private static final String PAGE_PREVIOUS_ATTRIBUTE = "PAGE_PREVIOUS_ATTRIBUTE";
+    private static final String PAGE_ACTUAL_ATTRIBUTE = "PAGE_ACTUAL_ATTRIBUTE";
+    private static final String PAGE_COUNT_ATTRIBUTE = "PAGE_COUNT_ATTRIBUTE";
+
+    private static final String TELEPHONES_QUANTITY = "TELEPHONES_QUANTITY";
 
     @Autowired
     private ServiceTelephone serviceTelephone;
@@ -54,8 +62,72 @@ public class ControllerTelephone {
         ShowMode showMode = resolveCounterMode(model, counterMode);
         Integer rop = resolveRowsOnPage(model, rowsOnPage);
 
-        model.addAttribute(TELEPHONES_ATTR, serviceTelephone.getFilteredTelephones(null, showMode, rop));
+        //Get an info about pages
+        int countOfRowsGenerally = serviceTelephone.getCountOfFilteredTelephones(showMode);
+        model.addAttribute(TELEPHONES_QUANTITY, countOfRowsGenerally);
+
+        //Count pages
+        int countOfPages = Double.valueOf(Math.ceil((countOfRowsGenerally + 0.0) / rop)).intValue();
+        Integer actualPageNum = resolveActualPage(model, actualPage, countOfPages);
+
+        Integer upLimit = actualPageNum * rop;
+        Integer downLimit = ((actualPageNum - 1) * rop) + 1;
+
+        //Count of pages
+        model.addAttribute(PAGE_COUNT_ATTRIBUTE, countOfPages);
+        //Object list
+        List<Telephone> telephones = serviceTelephone.getFilteredTelephones(null, showMode, rop, downLimit, upLimit);
+        Collections.sort(telephones, (o1, o2) -> {
+            if(o1.getPhoneDate().getTime() > o2.getPhoneDate().getTime()){
+                return -1;
+            } else if(o1.getPhoneDate().getTime() < o2.getPhoneDate().getTime()){
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        //Fill ordinal numbers
+        int startNum = countOfRowsGenerally - ((actualPageNum - 1) * rop);
+        for(Telephone telephone: telephones){
+            telephone.setOrdinalNumber(startNum);
+            startNum--;
+        }
+
+        model.addAttribute(TELEPHONES_ATTR, telephones);
         return "telephone";
+    }
+
+    private Integer resolveActualPage(Model model, String actualPage, Integer countOfPages) {
+
+        Integer actualPageNum;
+        try{
+            actualPageNum = Integer.valueOf(actualPage);
+        } catch (Throwable t){
+            actualPageNum = 1;
+        }
+
+        if(actualPageNum < 1){
+            actualPageNum = 1;
+        } else if(actualPageNum > countOfPages){
+            actualPageNum = countOfPages;
+        }
+
+        //Add actual page to the model
+        model.addAttribute(PAGE_ACTUAL_ATTRIBUTE, actualPageNum);
+
+        //Add previous page attribute
+        if(!(actualPageNum <= 1)){
+            model.addAttribute(PAGE_PREVIOUS_ATTRIBUTE, actualPageNum - 1);
+        }
+
+        //Add next page attribute
+        if(!(actualPageNum >= countOfPages)){
+            model.addAttribute(PAGE_NEXT_ATTRIBUTE, actualPageNum + 1);
+        }
+
+        return actualPageNum;
+
     }
 
     private Integer resolveRowsOnPage(Model model, String rowsOnPage) {
@@ -107,12 +179,12 @@ public class ControllerTelephone {
 
     @GetMapping(TELEPHONE_DELETE_PATH + "/{phoneId}")
     public String deleteTelephone(  Model model,
-                                    @PathVariable("phoneId") String telephoneId,
+                                    @PathVariable("phoneId") Long telephoneId,
                                     @RequestHeader(value = "referer", required = false) final String referer){
 
         try{
             //Delete action
-            serviceTelephone.removeTelephone(Long.valueOf(telephoneId.replace(" ", "")));
+            serviceTelephone.removeTelephone(telephoneId);
         } catch (Throwable t){
             t.printStackTrace();
         }

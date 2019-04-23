@@ -1,13 +1,9 @@
 package pl.jj.app.util;
 
-import com.sun.org.apache.bcel.internal.generic.FADD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.util.resources.LocaleData;
 
 import java.lang.reflect.Field;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,9 +35,7 @@ public final class Const {
     public static final String DEFAULT_DIC_FIELD_PREFIX = "DEF_DIC_";
     public static final String DIC_VALUE_PREFIX = "DIC_";
     public static final String DEF_DIC_ROWS_ON_PAGE = "ROWS_ON_PAGE";
-    public static final String DIC_ROWS_ON_PAGE_5 = "5";
     public static final String DIC_ROWS_ON_PAGE_10 = "10";
-    public static final String DIC_ROWS_ON_PAGE_20 = "20";
 
     //CONDITION
     public static final Integer MAX_ROWS_ON_PAGES = 100;
