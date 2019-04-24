@@ -2,6 +2,7 @@
 .show-chat-btn{ border-radius: 0 0 0 .25rem; }
 .chat-message { border-radius: 0.75rem; }
 .scroll { max-height: 562px; overflow-y: auto; }
+.box-chat-hide { display: none; }
 
 .box-chat-container{
     z-index: 1000;

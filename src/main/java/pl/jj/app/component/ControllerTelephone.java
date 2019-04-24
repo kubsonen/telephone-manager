@@ -29,6 +29,7 @@ public class ControllerTelephone {
     private static final String ADD_MODEL_TELEPHONE_ATTR_COUNTER_MODE = "cm";
     private static final String ADD_MODEL_TELEPHONE_ATTR_ACTUAL_PAGE = "page";
     private static final String ADD_MODEL_TELEPHONE_ATTR_ROWS_ON_PAGE = "pr";
+    private static final String ADD_MODEL_TELEPHONE_ATTR_CHAT_VISIBLE = "chat";
 
     private static final String ACTUAL_MODE_ATTRIBUTE = "ACTUAL_MODE";
     private static final String ACTUAL_ROWS_ON_PAGE_ATTRIBUTE = "ACTUAL_ROWS_ON_PAGE";
@@ -39,6 +40,10 @@ public class ControllerTelephone {
     private static final String PAGE_COUNT_ATTRIBUTE = "PAGE_COUNT_ATTRIBUTE";
 
     private static final String TELEPHONES_QUANTITY = "TELEPHONES_QUANTITY";
+
+    private static final String CHAT_VISIBILITY = "CHAT_VISIBILITY";
+    private static final String CHAT_VISIBLE_TRUE_VALUE = "ctrue";
+    private static final String CHAT_VISIBLE_FALSE_VALUE = "cfalse";
 
     @Autowired
     private ServiceTelephone serviceTelephone;
@@ -54,7 +59,8 @@ public class ControllerTelephone {
     public String showTelephonePage(Model model,
                                     @RequestParam(name = ADD_MODEL_TELEPHONE_ATTR_COUNTER_MODE, required = false) String counterMode,
                                     @RequestParam(name = ADD_MODEL_TELEPHONE_ATTR_ACTUAL_PAGE, required = false) String actualPage,
-                                    @RequestParam(name = ADD_MODEL_TELEPHONE_ATTR_ROWS_ON_PAGE, required = false) String rowsOnPage){
+                                    @RequestParam(name = ADD_MODEL_TELEPHONE_ATTR_ROWS_ON_PAGE, required = false) String rowsOnPage,
+                                    @RequestParam(name = ADD_MODEL_TELEPHONE_ATTR_CHAT_VISIBLE, required = false) String chatVisible){
 
         //Initialize default dictionary values
         if(Const.dicNeedToCreate()) serviceDictionary.initializeDefaultDictionaries();
@@ -86,6 +92,13 @@ public class ControllerTelephone {
                 return 0;
             }
         });
+
+        //Chat visibility
+        if(chatVisible != null){
+            if(chatVisible.equals(CHAT_VISIBLE_TRUE_VALUE)){
+                model.addAttribute(CHAT_VISIBILITY, CHAT_VISIBLE_TRUE_VALUE);
+            }
+        }
 
         //Fill ordinal numbers
         int startNum = countOfRowsGenerally - ((actualPageNum - 1) * rop);

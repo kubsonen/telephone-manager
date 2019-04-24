@@ -7,10 +7,10 @@
 </div>
 
 <!--Chat box-->
-<div class="container position-fixed box-chat-container">
+<div class="container position-fixed box-chat-container box-chat-hide">
     <div class="card shadow">
         <div class="card-header">
-            Chat box  <div class="float-right"><i class="fas fa-times"></i></i></div>
+            Chat box  <div class="float-right" id="chat-box-close-icon"><i class="fas fa-times"></i></i></div>
         </div>
         <div class="card-body scroll">
 

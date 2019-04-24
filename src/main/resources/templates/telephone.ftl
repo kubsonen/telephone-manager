@@ -79,7 +79,8 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="${ADD_MODEL_TELEPHONE_ATTR_ACTUAL_PAGE}" id="actualPageFormField" value="1">
+            <input type="hidden" name="${ADD_MODEL_TELEPHONE_ATTR_ACTUAL_PAGE}" id="actualPageFormField" value="${(PAGE_ACTUAL_ATTRIBUTE)!''}">
+            <input type="hidden" name="${ADD_MODEL_TELEPHONE_ATTR_CHAT_VISIBLE}" id="visibleChat" value="${(CHAT_VISIBILITY)!''}">
         </form>
     </div>
 
