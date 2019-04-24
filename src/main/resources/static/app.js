@@ -5,6 +5,18 @@ function nextPage(p){
     $( "#changeRowsOnPage" ).submit();
 }
 
+//Connect after last message loading
+function loadLastMessages(){
+    $.ajax({
+        url: "/chat/lastMessages",
+        method: "POST",
+        contentType: "application/json",
+        success: function(data){
+
+        }
+    });
+}
+
 var stompClient = null;
 
 //Connect to the chat
@@ -13,7 +25,7 @@ function connect(){
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         stompClient.subscribe('/topic/receiveMessage', function (msg) {
-            
+
         });
     });
 }
@@ -26,15 +38,23 @@ function disconnect(){
     }
 }
 
+function unloadMessage() {
+   disconnect();
+}
+
+
 var chatShow = 'ctrue';
 var chatHide = 'cfalse';
 
 //Chat logic
 //On page loading
 $( document ).ready(function() {
+
+    window.onbeforeunload = unloadMessage;
+
     if($( "#visibleChat" ).val() === chatShow){
         $( ".box-chat-container" ).removeClass( "box-chat-hide" )
-        connect();
+        loadLastMessages();
     } else {
         $( ".box-chat-container" ).addClass( "box-chat-hide" )
         disconnect();

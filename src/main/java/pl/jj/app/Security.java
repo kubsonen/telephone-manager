@@ -40,7 +40,6 @@ public class Security extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception { //p123
-//        auth.inMemoryAuthentication().withUser("pata").password(encoder().encode("p123")).roles("ADMIN");
         auth.authenticationProvider(authenticationProvider());
     }
 
