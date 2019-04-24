@@ -5,6 +5,27 @@ function nextPage(p){
     $( "#changeRowsOnPage" ).submit();
 }
 
+var stompClient = null;
+
+//Connect to the chat
+function connect(){
+    var socket = new SockJS('/tm-chat-ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        stompClient.subscribe('/topic/receiveMessage', function (msg) {
+            
+        });
+    });
+}
+
+
+//Chat disconnect
+function disconnect(){
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+}
+
 var chatShow = 'ctrue';
 var chatHide = 'cfalse';
 
@@ -13,8 +34,10 @@ var chatHide = 'cfalse';
 $( document ).ready(function() {
     if($( "#visibleChat" ).val() === chatShow){
         $( ".box-chat-container" ).removeClass( "box-chat-hide" )
+        connect();
     } else {
         $( ".box-chat-container" ).addClass( "box-chat-hide" )
+        disconnect();
     }
 });
 
@@ -29,5 +52,3 @@ $( ".show-chat-btn" ).click(function(){
     $( "#visibleChat" ).val(chatShow);
     $( "#changeRowsOnPage" ).submit();
 });
-
-
