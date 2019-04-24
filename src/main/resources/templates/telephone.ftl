@@ -85,7 +85,7 @@
                 <div class="col-12">
                     <label><b>Last telephones</b></label>
                     <#if TELEPHONES_QUANTITY??>
-                        <br><label>Total quantity: ${TELEPHONES_QUANTITY}</label>
+                        <br><label>Total amount: ${TELEPHONES_QUANTITY}</label>
                     </#if>
                 </div>
             </div>
