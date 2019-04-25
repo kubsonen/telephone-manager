@@ -1,13 +1,17 @@
 package pl.jj.app.component;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.jj.app.data.ServiceChat;
 import pl.jj.app.entity.ChatMessage;
+import pl.jj.app.util.Const;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,25 +25,32 @@ public class ControllerChat {
     public static final String CHAT_PATH = "/chat";
     public static final String CHAT_GET_LAST_MESSAGES = "/lastMessages";
 
+    @Autowired
+    private ServiceChat serviceChat;
+
     @ResponseBody
     @PostMapping(CHAT_GET_LAST_MESSAGES)
     public List<ChatMessage> loadLastMessages(){
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setMessageContent("Elo");
-        List<ChatMessage> chatMessages = new ArrayList<>();
-        chatMessages.add(chatMessage);
-        return chatMessages;
+        return serviceChat.findFirstRows(Const.INIT_MESSAGES);
     }
 
     @MessageMapping("/sendMessage")
     @SendTo("/topic/receiveMessage")
-    public List<ChatMessage> messageExchange(){
+    public ChatMessage messageExchange(ChatMessage message,
+                                       Principal principal){
+
+        //Save object to database
+        ChatMessage chatMessage = serviceChat.saveMessage(
+                message,
+                principal.getName());
+
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+
+        return chatMessage;
     }
 
 }

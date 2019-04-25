@@ -42,6 +42,18 @@
                 <database.location>/srv/telephone-manager/dbo</database.location>
             </properties>
         </profile>
+        <profile>
+            <id>windows-home</id>
+            <activation>
+                <property>
+                    <name>dbPath</name>
+                    <value>windows-home</value>
+                </property>
+            </activation>
+            <properties>
+                <database.location>C:/Users/Jakub/Desktop/Programowanie/japp/telephone-manager/dbo</database.location>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>

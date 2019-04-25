@@ -1,5 +1,6 @@
 package pl.jj.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,9 +23,11 @@ public class User extends CommonEntity implements UserDetails {
     @Column(name = "username", unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_authority_link",
         joinColumns = @JoinColumn(name = "user_id"),

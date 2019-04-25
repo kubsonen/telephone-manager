@@ -40,4 +40,9 @@ public class ServiceUser implements UserDetailsService {
         return user;
     }
 
+    @Transactional
+    public User findByUsername(String username){
+        return repositoryUser.findByUsername(username).orElse(null);
+    }
+
 }

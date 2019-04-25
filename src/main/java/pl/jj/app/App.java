@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * @author JNartowicz
  */
-//exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class}
 @SpringBootApplication
 @EnableAspectJAutoProxy
 public class App extends SpringBootServletInitializer {

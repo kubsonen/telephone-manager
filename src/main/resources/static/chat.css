@@ -1,6 +1,6 @@
 .show-chat-element{ top:0; right: 0; z-index: 1000; }
 .show-chat-btn{ border-radius: 0 0 0 .25rem; }
-.chat-message { border-radius: 0.75rem; }
+.chat-message { border-radius: 0.25rem; }
 .scroll { max-height: 562px; overflow-y: auto; }
 .box-chat-hide { display: none; }
 

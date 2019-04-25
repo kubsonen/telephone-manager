@@ -39,6 +39,7 @@ public final class Const {
 
     //CONDITION
     public static final Integer MAX_ROWS_ON_PAGES = 100;
+    public static final Integer INIT_MESSAGES = 20;
 
     /**
      * Get the values based on field name.
