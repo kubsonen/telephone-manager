@@ -7,7 +7,7 @@
 </div>
 
 <!--Chat box-->
-<div class="container position-fixed box-chat-container box-chat-hide">
+<div class="my-2 container position-fixed box-chat-container box-chat-hide">
     <div class="card shadow">
         <div class="card-header">
             Chat box  <div class="float-right" id="chat-box-close-icon"><i class="fas fa-times"></i></i></div>

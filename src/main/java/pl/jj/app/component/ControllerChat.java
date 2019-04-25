@@ -39,13 +39,22 @@ public class ControllerChat {
     public ChatMessage messageExchange(ChatMessage message,
                                        Principal principal){
 
+        try{
+            if(message.getMessageContent().isEmpty()){
+                return null;
+            };
+        } catch (Throwable t){
+            return null;
+        }
+
+
         //Save object to database
         ChatMessage chatMessage = serviceChat.saveMessage(
                 message,
                 principal.getName());
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

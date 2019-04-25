@@ -5,10 +5,18 @@
 .box-chat-hide { display: none; }
 
 .box-chat-container{
-    z-index: 1000;
+    z-index: 1100;
     bottom:0;
     right: 0px;
     max-width: 429px;
+    position: fixed!important;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="box-chat-container"] {
+        position: static!important;
+    }
 }
 
 .box-chat-container > .card{

@@ -70,8 +70,11 @@ function connect(){
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         stompClient.subscribe('/topic/receiveMessage', function (msg) {
-            addMessageToBox(JSON.parse(msg.body));
-            scrollDownChat();
+            var msgBody = msg.body;
+            if(msgBody !== null){
+                addMessageToBox(JSON.parse(msgBody));
+                scrollDownChat();
+            }
         });
     });
 }
@@ -121,8 +124,18 @@ $( ".show-chat-btn" ).click(function(){
     $( "#changeRowsOnPage" ).submit();
 });
 
+//On enter key
+$("#message-content").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        var m = $(this).val();
+        $(this).val('');
+        sendMessage(m);
+    }
+});
+
 //Send message action
 $( "#send-button" ).click(function () {
     var m = $("#message-content").val();
+    $("#message-content").val('');
     sendMessage(m);
 });
