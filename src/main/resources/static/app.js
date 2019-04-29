@@ -9,6 +9,18 @@ function scrollDownChat() {
     $('#messages-box').scrollTop($('#messages-box')[0].scrollHeight);
 }
 
+//Checking that the tab is active
+var originalTittle = document.title;
+var focused = true;
+$(function() {
+    $(window).focus(function() {
+        focused = true;
+        document.title = originalTittle;
+    }).blur(function() {
+        focused = false;
+    });
+});
+
 function addMessageToBox(data) {
     if(Array.isArray(data)){
         data.forEach(function (msg) {
@@ -63,6 +75,7 @@ function loadLastMessages(){
 }
 
 var stompClient = null;
+var audio = new Audio('/alert.ogg');
 
 //Connect to the chat
 function connect(){
@@ -72,7 +85,16 @@ function connect(){
         stompClient.subscribe('/topic/receiveMessage', function (msg) {
             var msgBody = msg.body;
             if(msgBody !== null){
-                addMessageToBox(JSON.parse(msgBody));
+                var object = JSON.parse(msgBody);
+                addMessageToBox(object);
+                if(!focused){
+                    var s = '';
+                    if(object.sender !== null){
+                        s = object.sender.username;
+                    }
+                    document.title =  s + ' text you';
+                }
+                audio.play();
                 scrollDownChat();
             }
         });
@@ -94,7 +116,6 @@ function sendMessage(message) {
     stompClient.send("/chat/sendMessage", {},
         JSON.stringify({'messageContent': message}));
 }
-
 
 var chatShow = 'ctrue';
 var chatHide = 'cfalse';

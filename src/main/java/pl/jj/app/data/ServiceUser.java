@@ -27,12 +27,16 @@ public class ServiceUser implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         String defUsername = "pata";
-        repositoryUser.findByUsername(defUsername).orElseGet(() -> {
-            User user = new User();
-            user.setUsername("pata");
-            user.setPassword(passwordEncoder.encode("p123"));
-            return repositoryUser.save(user);
-        });
+//        repositoryUser.findByUsername(defUsername).ifPresent(user -> {
+//            repositoryUser.delete(user);
+//        });
+//
+//        repositoryUser.findByUsername(defUsername).orElseGet(() -> {
+//            User user = new User();
+//            user.setUsername(defUsername);
+//            user.setPassword(passwordEncoder.encode("pq1"));
+//            return repositoryUser.save(user);
+//        });
 
         User user = repositoryUser.findByUsername(s).orElseThrow(() -> new UsernameNotFoundException(s));
         user.getAuthorities().size();
