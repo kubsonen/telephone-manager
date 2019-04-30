@@ -6,29 +6,28 @@ import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import pl.jj.app.data.ServiceDictionary;
 import pl.jj.app.util.Const;
 import pl.jj.app.util.InsertDictionary;
 import pl.jj.app.util.ShowMode;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 /**
  * @author JNartowicz
  */
 @Aspect
-@Component
-public class AspectController {
+public class AspectController implements Serializable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AspectController.class);
 
     @Autowired
     private ServiceDictionary serviceDictionary;
 
-    @Before("@within(org.springframework.stereotype.Controller)")
-    private void beforeController(JoinPoint joinPoint){
+    @Before("execution(* pl.jj.app.component.*.*(..))")
+    private void bfs(JoinPoint joinPoint){
 
         Model model = getJointPointMode(joinPoint);
         if(model == null) return;

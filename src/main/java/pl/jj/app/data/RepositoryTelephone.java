@@ -7,6 +7,7 @@ import pl.jj.app.entity.Telephone;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author JNartowicz
@@ -23,6 +24,11 @@ public interface RepositoryTelephone extends CrudRepository<Telephone, Long> {
     String filterTelephoneLimitRowQuery = " ) as tr " +
             " where R >= :downLimit and R <= :upLimit";
 
+    String getTelephonesFromDate = " select a.date as date, count(a.id) as quantity from (" +
+            "select t.id as id, DATE(t.phone_date) as date from telephone t " +
+            "where t.phone_date > :phoneDateFrom " +
+            ") a group by a.date order by a.date desc";
+
     @Query(value = "select count(*) " + filterTelephoneBaseQuery + ") as tr", nativeQuery = true)
     int getCountFilterTelephones(@Param("createTimeStart") Date startTime,
                                  @Param("createTimeEnd") Date endTime);
@@ -32,6 +38,9 @@ public interface RepositoryTelephone extends CrudRepository<Telephone, Long> {
                                      @Param("createTimeEnd") Date endTime,
                                      @Param("downLimit") Integer downLimit,
                                      @Param("upLimit") Integer upLimit);
+
+    @Query(value = getTelephonesFromDate, nativeQuery = true)
+    Set<Object[]> telephonesFromDate(@Param("phoneDateFrom") Date date);
 
 
 }

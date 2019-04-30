@@ -12,7 +12,6 @@ import pl.jj.app.entity.ChatMessage;
 import pl.jj.app.util.Const;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

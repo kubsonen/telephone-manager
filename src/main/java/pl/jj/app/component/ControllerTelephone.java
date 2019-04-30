@@ -43,7 +43,6 @@ public class ControllerTelephone {
 
     private static final String CHAT_VISIBILITY = "CHAT_VISIBILITY";
     private static final String CHAT_VISIBLE_TRUE_VALUE = "ctrue";
-    private static final String CHAT_VISIBLE_FALSE_VALUE = "cfalse";
 
     @Autowired
     private ServiceTelephone serviceTelephone;

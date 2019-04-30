@@ -3,13 +3,12 @@ package pl.jj.app.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jj.app.entity.Telephone;
+import pl.jj.app.util.ChartModel;
 import pl.jj.app.util.Const;
 import pl.jj.app.util.ShowMode;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author JNartowicz
@@ -75,6 +74,29 @@ public class ServiceTelephone {
                 return null;
         }
         return startDate;
+    }
+
+    @Transactional
+    public Set<Object[]> getStatsTelephonesByDays(Integer days){
+
+        //Prepare date from
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_YEAR, Math.abs(days) * (-1));
+        Date date = Const.modifyTimeOfDate(calendar.getTime(), false);
+
+        //Select data
+        Set<Object[]> data = repositoryTelephone.telephonesFromDate(date);
+
+        System.out.println(date);
+
+        for(Object[] objects: data){
+            System.out.println(objects[1].toString());
+        }
+
+        if(data == null || data.isEmpty()) return null;
+        return data;
+
     }
 
 }
