@@ -28,43 +28,68 @@ public class User extends CommonEntity implements UserDetails {
     private String password;
 
     @JsonIgnore
+    @Column(name = "first_name")
+    private String firstName;
+
+    @JsonIgnore
+    @Column(name = "last_name")
+    private String lastName;
+
+    @JsonIgnore
+    @Column(name = "email")
+    private String email;
+
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_authority_link",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorities = new HashSet<>();
 
+    @Transient
+    private Long index;
+
+    @Transient
+    private boolean selected;
+
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return username;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

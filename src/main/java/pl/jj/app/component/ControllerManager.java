@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.jj.app.data.ServiceTelephone;
+import pl.jj.app.data.ServiceUser;
 import pl.jj.app.util.ChartModel;
 
 import java.util.Set;
@@ -23,13 +24,20 @@ public class ControllerManager {
 
     private static final Logger logger = LoggerFactory.getLogger(ControllerManager.class);
     public static final String MANAGER_PATH = "/manager";
-    public static final String CHART_DATA_PATH = "/get-telephones-by-day";
+    public static final String CHART_DATA_PATH = "/telephones-stats";
+    public static final String USER_MANAGER_PATH = "/users";
 
     //Chart constants
     private static final String CHART_BG_COLOR = "rgb(255, 99, 132)";
     private static final String CHART_MAIN_LABEL = "Telephones by day";
     private static final String CHART_BORDER_COLOR = "rgb(255, 99, 132)";
     public static final Integer DAYS_IN_CHART =  10;
+
+    //Model attributes
+    private static final String USERS_ATTRIBUTES = "users";
+
+    @Autowired
+    private ServiceUser serviceUser;
 
     @Autowired
     private ServiceTelephone serviceTelephone;
@@ -81,6 +89,12 @@ public class ControllerManager {
             }
         }
         return builder.build();
+    }
+
+    @GetMapping(USER_MANAGER_PATH)
+    public String userPanel(Model model){
+        model.addAttribute(USERS_ATTRIBUTES, serviceUser.getAllUsers());
+        return "manager-user";
     }
 
 }

@@ -88,12 +88,6 @@ public class ServiceTelephone {
         //Select data
         Set<Object[]> data = repositoryTelephone.telephonesFromDate(date);
 
-        System.out.println(date);
-
-        for(Object[] objects: data){
-            System.out.println(objects[1].toString());
-        }
-
         if(data == null || data.isEmpty()) return null;
         return data;
 

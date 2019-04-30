@@ -2,7 +2,7 @@
 var ctx = document.getElementById('line-chart').getContext('2d');
 
 $.ajax({
-    url: "/manager/get-telephones-by-day",
+    url: "/manager/telephones-stats",
     method: "POST",
     contentType: "application/json",
     success: function(chartData){

@@ -3,6 +3,7 @@ package pl.jj.app.data;
 import org.springframework.data.repository.CrudRepository;
 import pl.jj.app.entity.User;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -10,4 +11,5 @@ import java.util.Optional;
  */
 public interface RepositoryUser extends CrudRepository<User,  Long> {
     Optional<User> findByUsername(String username);
+    List<User> findAll();
 }

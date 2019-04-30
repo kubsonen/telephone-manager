@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.jj.app.entity.User;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @author JNartowicz
@@ -26,18 +27,6 @@ public class ServiceUser implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        String defUsername = "pata";
-//        repositoryUser.findByUsername(defUsername).ifPresent(user -> {
-//            repositoryUser.delete(user);
-//        });
-//
-//        repositoryUser.findByUsername(defUsername).orElseGet(() -> {
-//            User user = new User();
-//            user.setUsername(defUsername);
-//            user.setPassword(passwordEncoder.encode("pq1"));
-//            return repositoryUser.save(user);
-//        });
-
         User user = repositoryUser.findByUsername(s).orElseThrow(() -> new UsernameNotFoundException(s));
         user.getAuthorities().size();
 
@@ -47,6 +36,17 @@ public class ServiceUser implements UserDetailsService {
     @Transactional
     public User findByUsername(String username){
         return repositoryUser.findByUsername(username).orElse(null);
+    }
+
+    @Transactional
+    public List<User> getAllUsers(){
+        List<User> users = repositoryUser.findAll();
+        long i = 0;
+        for(User user: users) {
+            user.setIndex(i);
+            i++;
+        }
+        return users;
     }
 
 }
