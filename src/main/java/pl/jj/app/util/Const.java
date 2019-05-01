@@ -114,4 +114,21 @@ public final class Const {
         return calendar.getTime();
     }
 
+    /**
+     * This method converts objects to the list of strings.
+     * Developer indicate a fields or fields which will be in string.
+     * @return - string list
+     */
+    public static final <T> List<String> convertDataToListString(List<T> list, IndicateData<T> data){
+        List<String> strings = new ArrayList<>();
+        for(T t: list){
+            strings.add(data.getData(t));
+        }
+        return strings;
+    }
+
+    public interface IndicateData<T>{
+        String getData(T t);
+    }
+
 }

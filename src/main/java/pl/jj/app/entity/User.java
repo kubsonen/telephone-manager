@@ -40,11 +40,15 @@ public class User extends CommonEntity implements UserDetails {
     private String email;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinTable(name = "user_authority_link",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorities = new HashSet<>();
+
+    @JsonIgnore
+    @Column(name = "account_not_lock", columnDefinition = "BOOLEAN default true")
+    private boolean accountNotLock;
 
     @Transient
     private Long index;
@@ -79,7 +83,7 @@ public class User extends CommonEntity implements UserDetails {
     @Override
     @JsonIgnore
     public boolean isAccountNonLocked() {
-        return true;
+        return accountNotLock;
     }
 
     @Override

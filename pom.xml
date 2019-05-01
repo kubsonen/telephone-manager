@@ -60,6 +60,7 @@
         <lombok.version>1.18.0</lombok.version>
         <mysql.driver.version>8.0.13</mysql.driver.version>
         <derby.version>10.14.2.0</derby.version>
+        <apache.commons.version>3.8.1</apache.commons.version>
     </properties>
 
     <dependencies>
@@ -109,6 +110,11 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons.version}</version>
         </dependency>
 
     </dependencies>

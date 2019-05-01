@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.jj.app.entity.User;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +27,8 @@ public class ServiceUser implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-
         User user = repositoryUser.findByUsername(s).orElseThrow(() -> new UsernameNotFoundException(s));
         user.getAuthorities().size();
-
         return user;
     }
 
@@ -45,6 +44,22 @@ public class ServiceUser implements UserDetailsService {
         for(User user: users) {
             user.setIndex(i);
             i++;
+        }
+        return users;
+    }
+
+    @Transactional
+    public User saveUser(User user){
+        return repositoryUser.save(user);
+    }
+
+    @Transactional
+    public List<User> lockUsers(List<Long> userIds, boolean unlock){
+        List<User> users = new ArrayList<>();
+        for(Long id: userIds){
+            User user = repositoryUser.findById(id).get();
+            user.setAccountNotLock(unlock);
+            users.add(user);
         }
         return users;
     }

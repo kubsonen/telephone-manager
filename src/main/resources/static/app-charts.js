@@ -8,7 +8,7 @@ $.ajax({
     success: function(chartData){
 
         //Create chart
-        var myLineChart = new Chart(ctx, {
+        new Chart(ctx, {
             type: 'line',
             data: chartData,
             options: {}
