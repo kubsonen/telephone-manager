@@ -8,27 +8,27 @@
     <#include "manager/manager-navbar.ftl">
     <div class="mt-4 container">
 
-        <#if USERS_LOCK_NICKNAMES??>
+        <#if lockSuccess??>
             <div class="alert alert-success" role="alert">
-                <b>${USERS_LOCK_NICKNAMES}</b> successfully locked!
+                Successfully locked!
             </div>
         </#if>
 
-        <#if USERS_LOCK_FAIL??>
+        <#if lockFail??>
             <div class="alert alert-danger" role="alert">
-                Lock users fail.
+                Lock user fail.
             </div>
         </#if>
 
-        <#if USERS_UNLOCK_NICKNAMES??>
+        <#if unlockSuccess??>
             <div class="alert alert-success" role="alert">
-                <b>${USERS_UNLOCK_NICKNAMES}</b> successfully unlocked!
+                Successfully unlocked!
             </div>
         </#if>
 
-        <#if USERS_UNLOCK_FAIL??>
+        <#if unlockFail??>
             <div class="alert alert-danger" role="alert">
-                Unlock users fail.
+                Unlock user fail.
             </div>
         </#if>
 
@@ -42,10 +42,7 @@
         <form method="post" action="/manager/users" name="users">
             <div class="card w-100">
                 <div class="card-body">
-<#--                    <button type="button" class="btn btn-primary">Send invite link</button>-->
-<#--                    <button type="button" class="btn btn-danger" name="reset" value="reset">Reset password</button>-->
-<#--                    <button type="submit" class="btn btn-success" name="unlock" value="unlock">Unlock</button>-->
-                    <button type="submit" class="btn btn-danger" >Lock</button>
+                    <button type="button" class="btn btn-primary">Send invite link</button>
                 </div>
             </div>
 
@@ -54,22 +51,31 @@
                     <table class="table table-borderless">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox"></th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Last name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <#list users as u>
-                                <tr>
-                                    <th scope="row"><input type="checkbox" name="userModels${(u.index)!''}.selected"></th>
+
+                                <#if u.accountNotLock == true>
+                                    <tr>
+                                <#else>
+                                    <tr class="table-danger">
+                                </#if>
+
                                     <td>${(u.username)!''}</td>
                                     <td>${(u.firstName)!''}</td>
                                     <td>${(u.lastName)!''}</td>
                                     <td>${(u.email)!''}</td>
-                                    <input type="hidden" name="userModels${(u.index)!''}.id" value="${(u.id)!''}">
+                                    <td>
+                                        <a role="button" href="/manager/users/lock/${(u.id)!''}" class="btn btn-danger">Lock</a>
+                                        <a role="button" href="/manager/users/unlock/${(u.id)!''}" class="btn btn-primary">Unlock</a>
+                                        <a role="button" href="/manager/users/reset/${(u.id)!''}" class="btn btn-danger">Reset password</a>
+                                    </td>
                                 </tr>
                             </#list>
                         </tbody>

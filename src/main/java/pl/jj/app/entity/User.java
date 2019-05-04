@@ -46,7 +46,6 @@ public class User extends CommonEntity implements UserDetails {
         inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Set<Authority> authorities = new HashSet<>();
 
-    @JsonIgnore
     @Column(name = "account_not_lock", columnDefinition = "BOOLEAN default true")
     private boolean accountNotLock;
 
@@ -81,7 +80,6 @@ public class User extends CommonEntity implements UserDetails {
     }
 
     @Override
-    @JsonIgnore
     public boolean isAccountNonLocked() {
         return accountNotLock;
     }

@@ -54,12 +54,17 @@ public class ServiceUser implements UserDetailsService {
     }
 
     @Transactional
+    public User lockUser(Long id, boolean unlock){
+        User user = repositoryUser.findById(id).get();
+        user.setAccountNotLock(unlock);
+        return user;
+    }
+
+    @Transactional
     public List<User> lockUsers(List<Long> userIds, boolean unlock){
         List<User> users = new ArrayList<>();
         for(Long id: userIds){
-            User user = repositoryUser.findById(id).get();
-            user.setAccountNotLock(unlock);
-            users.add(user);
+            users.add(lockUser(id, unlock));
         }
         return users;
     }
