@@ -2,8 +2,7 @@ package pl.jj.app.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.jj.app.entity.Telephone;
-import pl.jj.app.util.ChartModel;
+import pl.jj.app.model.Telephone;
 import pl.jj.app.util.Const;
 import pl.jj.app.util.ShowMode;
 

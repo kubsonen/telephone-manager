@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.jj.app.data.RepositoryDictionary;
 import pl.jj.app.data.ServiceDictionary;
 import pl.jj.app.data.ServiceTelephone;
-import pl.jj.app.entity.Telephone;
+import pl.jj.app.model.Telephone;
 import pl.jj.app.util.Const;
 import pl.jj.app.util.InsertDictionary;
 import pl.jj.app.util.ShowMode;

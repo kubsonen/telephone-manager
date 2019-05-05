@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.jj.app.data.ServiceChat;
-import pl.jj.app.entity.ChatMessage;
+import pl.jj.app.model.ChatMessage;
 import pl.jj.app.util.Const;
 
 import java.security.Principal;

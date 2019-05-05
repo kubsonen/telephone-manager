@@ -3,7 +3,7 @@ package pl.jj.app.data;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import pl.jj.app.entity.Telephone;
+import pl.jj.app.model.Telephone;
 
 import java.util.Date;
 import java.util.List;

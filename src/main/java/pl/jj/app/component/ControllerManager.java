@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.jj.app.data.ServiceTelephone;
 import pl.jj.app.data.ServiceUser;
-import pl.jj.app.util.ChartModel;
+import pl.jj.app.model.ChartModel;
 import pl.jj.app.util.Const;
 
 import java.util.Set;
@@ -140,6 +140,9 @@ public class ControllerManager {
 
         return "redirect:" + MANAGER_PATH + USER_MANAGER_PATH;
     }
+
+
+
 }
 
 

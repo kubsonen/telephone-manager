@@ -1,4 +1,4 @@
-package pl.jj.app.util;
+package pl.jj.app.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;

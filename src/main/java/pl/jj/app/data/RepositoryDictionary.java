@@ -1,7 +1,7 @@
 package pl.jj.app.data;
 
 import org.springframework.data.repository.CrudRepository;
-import pl.jj.app.entity.Dictionary;
+import pl.jj.app.model.Dictionary;
 
 /**
  * @author JNartowicz

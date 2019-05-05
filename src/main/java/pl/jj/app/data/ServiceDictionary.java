@@ -2,11 +2,10 @@ package pl.jj.app.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.jj.app.entity.Dictionary;
+import pl.jj.app.model.Dictionary;
 import pl.jj.app.util.Const;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

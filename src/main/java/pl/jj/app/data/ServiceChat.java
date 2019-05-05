@@ -2,8 +2,8 @@ package pl.jj.app.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.jj.app.entity.ChatMessage;
-import pl.jj.app.entity.User;
+import pl.jj.app.model.ChatMessage;
+import pl.jj.app.model.User;
 
 import javax.transaction.Transactional;
 import java.util.Collections;

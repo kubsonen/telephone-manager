@@ -1,7 +1,7 @@
 package pl.jj.app.data;
 
 import org.springframework.data.repository.CrudRepository;
-import pl.jj.app.entity.User;
+import pl.jj.app.model.User;
 
 import java.util.List;
 import java.util.Optional;
