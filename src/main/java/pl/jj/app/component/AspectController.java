@@ -1,16 +1,19 @@
 package pl.jj.app.component;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pl.jj.app.data.ServiceDictionary;
-import pl.jj.app.util.Const;
-import pl.jj.app.util.InsertDictionary;
-import pl.jj.app.util.ShowMode;
+import pl.jj.app.model.AjaxResponse;
+import pl.jj.app.util.*;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -19,6 +22,7 @@ import java.lang.reflect.Field;
  * @author JNartowicz
  */
 @Aspect
+@Component
 public class AspectController implements Serializable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AspectController.class);
@@ -65,6 +69,20 @@ public class AspectController implements Serializable {
             }
 
         }
+    }
+
+    @Around("@annotation(responseBody)")
+    private Object handlingResponseBodyException(ProceedingJoinPoint proceedingJoinPoint, ResponseBody responseBody){
+
+        try {
+            return proceedingJoinPoint.proceed();
+        } catch (AjaxException aj){
+            return AjaxResponse.responseError(aj.getMessage());
+        } catch (Throwable t){
+            t.printStackTrace();
+            return AjaxResponse.responseError("Undefined error caught in aspect.");
+        }
+
     }
 
     /**

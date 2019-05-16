@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.jj.app.data.RepositoryDictionary;
 import pl.jj.app.data.ServiceDictionary;
 import pl.jj.app.data.ServiceTelephone;
+import pl.jj.app.data.ServiceUser;
 import pl.jj.app.model.Telephone;
+import pl.jj.app.model.User;
 import pl.jj.app.util.Const;
 import pl.jj.app.util.InsertDictionary;
 import pl.jj.app.util.ShowMode;
@@ -45,6 +47,9 @@ public class ControllerTelephone {
     private static final String CHAT_VISIBLE_TRUE_VALUE = "ctrue";
 
     @Autowired
+    private ServiceUser serviceUser;
+
+    @Autowired
     private ServiceTelephone serviceTelephone;
 
     @Autowired
@@ -61,6 +66,9 @@ public class ControllerTelephone {
                                     @RequestParam(name = ADD_MODEL_TELEPHONE_ATTR_ROWS_ON_PAGE, required = false) String rowsOnPage,
                                     @RequestParam(name = ADD_MODEL_TELEPHONE_ATTR_CHAT_VISIBLE, required = false) String chatVisible){
 
+        //Get login user
+        User userLogin = serviceUser.getLoginUser();
+
         //Initialize default dictionary values
         if(Const.dicNeedToCreate()) serviceDictionary.initializeDefaultDictionaries();
         //Set actual select values
@@ -68,7 +76,7 @@ public class ControllerTelephone {
         Integer rop = resolveRowsOnPage(model, rowsOnPage);
 
         //Get an info about pages
-        int countOfRowsGenerally = serviceTelephone.getCountOfFilteredTelephones(showMode);
+        int countOfRowsGenerally = serviceTelephone.getCountOfFilteredTelephones(showMode, userLogin);
         model.addAttribute(TELEPHONES_QUANTITY, countOfRowsGenerally);
 
         //Count pages
@@ -81,7 +89,7 @@ public class ControllerTelephone {
         //Count of pages
         model.addAttribute(PAGE_COUNT_ATTRIBUTE, countOfPages);
         //Object list
-        List<Telephone> telephones = serviceTelephone.getFilteredTelephones(null, showMode, rop, downLimit, upLimit);
+        List<Telephone> telephones = serviceTelephone.getFilteredTelephones(null, showMode, rop, downLimit, upLimit, userLogin);
         Collections.sort(telephones, (o1, o2) -> {
             if(o1.getPhoneDate().getTime() > o2.getPhoneDate().getTime()){
                 return -1;

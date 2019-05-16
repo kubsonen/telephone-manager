@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import pl.jj.app.model.Telephone;
+import pl.jj.app.model.User;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,7 @@ public interface RepositoryTelephone extends CrudRepository<Telephone, Long> {
             " from (" +
             " select ROW_NUMBER() OVER () AS R, t.* from (select * from telephone t " +
             " where t.phone_date > :createTimeStart and t.phone_date < :createTimeEnd " +
+            " and t.creator = :creator " +
             " order by t.phone_date desc) as t ";
 
     String filterTelephoneLimitRowQuery = " ) as tr " +
@@ -31,11 +33,13 @@ public interface RepositoryTelephone extends CrudRepository<Telephone, Long> {
 
     @Query(value = "select count(*) " + filterTelephoneBaseQuery + ") as tr", nativeQuery = true)
     int getCountFilterTelephones(@Param("createTimeStart") Date startTime,
-                                 @Param("createTimeEnd") Date endTime);
+                                 @Param("createTimeEnd") Date endTime,
+                                 @Param("creator") User creator);
 
     @Query(value = "select * " + filterTelephoneBaseQuery + filterTelephoneLimitRowQuery, nativeQuery = true)
     List<Telephone> filterTelephones(@Param("createTimeStart") Date startTime,
                                      @Param("createTimeEnd") Date endTime,
+                                     @Param("creator") User creator,
                                      @Param("downLimit") Integer downLimit,
                                      @Param("upLimit") Integer upLimit);
 

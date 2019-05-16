@@ -49,6 +49,10 @@ public class User extends CommonEntity implements UserDetails {
     @Column(name = "account_not_lock", columnDefinition = "BOOLEAN default true")
     private boolean accountNotLock;
 
+    @OneToOne
+    @JoinColumn(name = "invite_link_id")
+    private InviteLink inviteLink;
+
     @Transient
     private Long index;
 
@@ -94,6 +98,13 @@ public class User extends CommonEntity implements UserDetails {
     @JsonIgnore
     public boolean isEnabled() {
         return true;
+    }
+
+    public void addAuthority(Authority authority){
+        if(authorities == null){
+            authorities = new HashSet<>();
+        }
+        authorities.add(authority);
     }
 
 }

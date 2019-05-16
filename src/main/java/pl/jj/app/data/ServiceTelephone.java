@@ -3,6 +3,7 @@ package pl.jj.app.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jj.app.model.Telephone;
+import pl.jj.app.model.User;
 import pl.jj.app.util.Const;
 import pl.jj.app.util.ShowMode;
 
@@ -16,12 +17,16 @@ import java.util.*;
 public class ServiceTelephone {
 
     @Autowired
+    private ServiceUser serviceUser;
+
+    @Autowired
     private RepositoryTelephone repositoryTelephone;
 
     @Transactional
     public void addTelephone(Telephone telephone){
         telephone.setPhoneDate(new Date());
         telephone.setCreateTime(new Date());
+        telephone.setCreator(serviceUser.getLoginUser());
         repositoryTelephone.save(telephone);
     }
 
@@ -41,17 +46,17 @@ public class ServiceTelephone {
     }
 
     @Transactional
-    public List<Telephone> getFilteredTelephones(Integer page, ShowMode showMode, Integer showsOnPage, Integer downLimit, Integer upLimit){
+    public List<Telephone> getFilteredTelephones(Integer page, ShowMode showMode, Integer showsOnPage, Integer downLimit, Integer upLimit, User creator){
         Date endDate = Const.modifyTimeOfDate(new Date(), true);
         Date startDate = getStartDateByShowMode(showMode, endDate);
-        return repositoryTelephone.filterTelephones( startDate, endDate, downLimit, upLimit);
+        return repositoryTelephone.filterTelephones( startDate, endDate, creator, downLimit, upLimit);
     }
 
     @Transactional
-    public int getCountOfFilteredTelephones(ShowMode showMode){
+    public int getCountOfFilteredTelephones(ShowMode showMode, User userLogin){
         Date endDate = Const.modifyTimeOfDate(new Date(), true);
         Date startDate = getStartDateByShowMode(showMode, endDate);
-        return repositoryTelephone.getCountFilterTelephones(startDate, endDate);
+        return repositoryTelephone.getCountFilterTelephones(startDate, endDate, userLogin);
     }
 
     private Date getStartDateByShowMode(ShowMode showMode, Date endDate){

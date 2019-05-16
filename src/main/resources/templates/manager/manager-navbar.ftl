@@ -9,9 +9,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/manager/users">Users </a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/manager/params">Parameters </a>
-            </li>
+<#--            <li class="nav-item active">-->
+<#--                <a class="nav-link" href="/manager/params">Parameters </a>-->
+<#--            </li>-->
         </ul>
     </div>
 </nav>

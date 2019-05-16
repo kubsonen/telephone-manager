@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author JNartowicz
@@ -41,6 +43,18 @@ public final class Const {
     public static final Integer MAX_ROWS_ON_PAGES = 100;
     public static final Integer INIT_MESSAGES = 20;
 
+    //EMAIL PATTERN
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    //TOKEN EXPIRATION
+    public static final int EXPIRATION_DAYS = 5;
+
+    //CONSTANT STRINGS
+    public static final String SPACE = " ";
+    public static final String EMPTY = "";
+    public static final String DOLLAR = "$";
+
     /**
      * Get the values based on field name.
      * @param prefix - field name prefix
@@ -60,6 +74,19 @@ public final class Const {
             }
         }
         return fields;
+    }
+
+    /**
+     * Change date inputted in argument. Method add days to date.
+     * @param date - date from
+     * @param days - days to add
+     * @return - modified date
+     */
+    public static final Date addDaysToDate(Date date, int days){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, days);
+        return calendar.getTime();
     }
 
     /**

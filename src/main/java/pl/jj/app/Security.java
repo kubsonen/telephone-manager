@@ -26,7 +26,7 @@ public class Security extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
         dao.setUserDetailsService(serviceUser);
         dao.setPasswordEncoder(passwordEncoder);
@@ -34,18 +34,21 @@ public class Security extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder encoder(){
+    public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception { //p123
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().formLogin();
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/register/**").permitAll();
+        http.authorizeRequests().antMatchers("/manager/**").hasAnyAuthority("manager");
+        http.authorizeRequests().anyRequest().authenticated().and().formLogin();
     }
 
 }

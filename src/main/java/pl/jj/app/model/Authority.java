@@ -25,4 +25,10 @@ public class Authority extends CommonEntity implements GrantedAuthority {
         return authority;
     }
 
+    public Authority() {
+    }
+
+    public Authority(String authority) {
+        this.authority = authority;
+    }
 }

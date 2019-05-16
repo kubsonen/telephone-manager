@@ -21,11 +21,6 @@ public class App extends SpringBootServletInitializer {
     }
 
     @Bean
-    public AspectController aspectController(){
-        return new AspectController();
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }

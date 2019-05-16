@@ -27,4 +27,8 @@ public abstract class CommonEntity {
     @Column(name = "create_time")
     protected Date createTime;
 
+    @ManyToOne
+    @JoinColumn(name = "creator")
+    protected User creator;
+
 }

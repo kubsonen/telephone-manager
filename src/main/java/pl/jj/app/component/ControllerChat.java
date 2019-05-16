@@ -2,14 +2,13 @@ package pl.jj.app.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.jj.app.data.ServiceChat;
+import pl.jj.app.data.ServiceTerminal;
 import pl.jj.app.model.ChatMessage;
-import pl.jj.app.util.Const;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,22 +26,31 @@ public class ControllerChat {
     @Autowired
     private ServiceChat serviceChat;
 
+    @Autowired
+    private ServiceTerminal serviceTerminal;
+
     @ResponseBody
     @PostMapping(CHAT_GET_LAST_MESSAGES)
-    public List<ChatMessage> loadLastMessages(){
-        return serviceChat.findFirstRows(Const.INIT_MESSAGES);
+    public List<ChatMessage> loadLastMessages() {
+//        return serviceChat.findFirstRows(Const.INIT_MESSAGES);
+        return null;
     }
 
     @MessageMapping("/sendMessage")
-    @SendTo("/topic/receiveMessage")
+//    @SendTo("/topic/receiveMessage")
     public ChatMessage messageExchange(ChatMessage message,
-                                       Principal principal){
+                                       Principal principal) {
 
-        try{
-            if(message.getMessageContent().isEmpty()){
+        if (serviceTerminal.isTerminalCommand(message.getMessageContent())){
+            serviceTerminal.executeCommand(message.getMessageContent());
+            return null;
+        }
+
+        try {
+            if (message.getMessageContent().isEmpty()) {
                 return null;
-            };
-        } catch (Throwable t){
+            }
+        } catch (Throwable t) {
             return null;
         }
 

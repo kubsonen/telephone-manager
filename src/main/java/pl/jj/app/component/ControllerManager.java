@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.jj.app.data.ServiceTelephone;
 import pl.jj.app.data.ServiceUser;
+import pl.jj.app.model.AjaxResponse;
 import pl.jj.app.model.ChartModel;
+import pl.jj.app.model.InviteMail;
+import pl.jj.app.util.AjaxException;
 import pl.jj.app.util.Const;
 
 import java.util.Set;
+import java.util.regex.Matcher;
 
 /**
  * @author JNartowicz
@@ -27,6 +31,7 @@ public class ControllerManager {
     public static final String USER_MANAGER_PATH = "/users";
     public static final String USER_MANAGER_LOCK_USER_PATH = "/lock";
     public static final String USER_MANAGER_UNLOCK_USER_PATH = "/unlock";
+    public static final String USER_MANAGER_INVITE_NEW_USER_PATH = "/invite";
 
     //Chart constants
     private static final String CHART_BG_COLOR = "rgb(255, 99, 132)";
@@ -141,7 +146,16 @@ public class ControllerManager {
         return "redirect:" + MANAGER_PATH + USER_MANAGER_PATH;
     }
 
+    @ResponseBody
+    @PostMapping(USER_MANAGER_PATH + USER_MANAGER_INVITE_NEW_USER_PATH)
+    public AjaxResponse sendInviteLink(@RequestBody InviteMail mail) throws Throwable {
 
+        if(mail.getMail().isEmpty()) throw new AjaxException("E-mail was not entered.");
+        if(!Const.VALID_EMAIL_ADDRESS_REGEX.matcher(mail.getMail()).matches()) throw new AjaxException("Entered text is not an email address.");
+        serviceUser.sendEmailInvite(mail.getMail());
+        return AjaxResponse.responseSuccess("Invite link was sent.");
+
+    }
 
 }
 

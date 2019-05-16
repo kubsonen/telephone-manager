@@ -35,7 +35,8 @@ function addMessageToBox(data) {
 function constructMsg(msg) {
 
     var username = 'undefined';
-    if(msg.sender !== null && msg.sender.username !== null){
+    if( msg.sender !== undefined && msg.sender !== null &&
+        msg.sender.username !== undefined && msg.sender.username !== null){
         username = msg.sender.username;
     }
 
@@ -157,6 +158,7 @@ $("#message-content").on('keyup', function (e) {
 //Send message action
 $( "#send-button" ).click(function () {
     var m = $("#message-content").val();
+    console.log(m);
     $("#message-content").val('');
     sendMessage(m);
 });

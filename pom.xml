@@ -15,6 +15,12 @@
         <version>2.1.1.RELEASE</version>
     </parent>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <profiles>
         <profile>
@@ -28,6 +34,7 @@
             </activation>
             <properties>
                 <database.location>D:/japp/telephone-manager/dbo</database.location>
+                <address.url>localhost:6996</address.url>
             </properties>
         </profile>
         <profile>
@@ -40,6 +47,7 @@
             </activation>
             <properties>
                 <database.location>/srv/telephone-manager/dbo</database.location>
+                <address.url>80.211.242.115:8081</address.url>
             </properties>
         </profile>
         <profile>
@@ -52,6 +60,7 @@
             </activation>
             <properties>
                 <database.location>C:/Users/Jakub/Desktop/Programowanie/japp/telephone-manager/dbo</database.location>
+                <address.url>localhost:6996</address.url>
             </properties>
         </profile>
     </profiles>
@@ -61,6 +70,8 @@
         <mysql.driver.version>8.0.13</mysql.driver.version>
         <derby.version>10.14.2.0</derby.version>
         <apache.commons.version>3.8.1</apache.commons.version>
+        <javax.mail.version>1.5.0-b01</javax.mail.version>
+        <jj.utilities>6e85e20f19</jj.utilities>
     </properties>
 
     <dependencies>
@@ -116,7 +127,16 @@
             <artifactId>commons-lang3</artifactId>
             <version>${apache.commons.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${javax.mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.kubsonen</groupId>
+            <artifactId>jj-utilities</artifactId>
+            <version>${jj.utilities}</version>
+        </dependency>
     </dependencies>
 
     <build>

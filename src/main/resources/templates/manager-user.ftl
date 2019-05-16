@@ -42,7 +42,7 @@
         <form method="post" action="/manager/users" name="users">
             <div class="card w-100">
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary">Send invite link</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inviteModalCenter">Send invite link</button>
                 </div>
             </div>
 
@@ -86,6 +86,9 @@
     </div>
 
     <#include "manager/manager-js.ftl">
+    <#include "modal-error.ftl">
+    <#include "modal-success.ftl">
+    <#include "manager/manager-invite.ftl">
     </body>
 
 </html>
