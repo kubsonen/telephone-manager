@@ -10,12 +10,25 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/app.css">
     <title>TStats</title>
 </head>
 
 <body>
 
     <#include "chat.ftl">
+
+    <#if IS_MANAGER??>
+        <!--Manager fixed button-->
+        <div class="position-fixed show-manager-element">
+            <a href="/man" class="btn btn-secondary show-manager-btn"><i class="fas fa-tools"></i></a>
+        </div>
+    </#if>
+
+    <!--Logout fixed button-->
+    <div class="position-fixed show-logout-element">
+        <a href="/logout" class="btn btn-secondary show-manager-btn"><i class="fas fa-sign-out-alt"></i></i></a>
+    </div>
 
     <!-- add telephones -->
     <div class="container">

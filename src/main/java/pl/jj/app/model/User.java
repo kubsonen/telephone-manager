@@ -36,7 +36,7 @@ public class User extends CommonEntity implements UserDetails {
     private String lastName;
 
     @JsonIgnore
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @JsonIgnore
@@ -53,15 +53,34 @@ public class User extends CommonEntity implements UserDetails {
     @JoinColumn(name = "invite_link_id")
     private InviteLink inviteLink;
 
+    @JsonIgnore
+    @Column(name = "def_user", columnDefinition = "BOOLEAN default false")
+    private boolean defUser;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<ResetLink> resetLinks;
+
     @Transient
     private Long index;
 
     @Transient
     private boolean selected;
 
+    @Transient
+    private boolean manager;
+
+    @Transient
+    private boolean admin;
+
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @JsonIgnore
+    public Set<Authority> getAuthoritiesSet() {
         return authorities;
     }
 
@@ -94,10 +113,34 @@ public class User extends CommonEntity implements UserDetails {
         return true;
     }
 
+    public boolean isDefUser() {
+        return defUser;
+    }
+
+    public void setDefUser(boolean defaultUser) {
+        this.defUser = defaultUser;
+    }
+
     @Override
     @JsonIgnore
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isManager() {
+        return manager;
+    }
+
+    public void setManager(boolean manager) {
+        this.manager = manager;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public void addAuthority(Authority authority){
@@ -106,5 +149,7 @@ public class User extends CommonEntity implements UserDetails {
         }
         authorities.add(authority);
     }
+
+
 
 }

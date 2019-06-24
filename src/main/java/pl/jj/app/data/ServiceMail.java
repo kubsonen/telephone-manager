@@ -28,9 +28,6 @@ public class ServiceMail {
     @Value("${mail.smtp.port}")
     private String smtpPort;
 
-    @Value("${mail.smtp.ssl.trust}")
-    private String smtpSslTrust;
-
     @Value("${mail.email}")
     private String emailLogin;
 
@@ -44,7 +41,6 @@ public class ServiceMail {
         prop.put("mail.smtp.starttls.enable", smtpStarttlsEnable);
         prop.put("mail.smtp.host", smtpHost);
         prop.put("mail.smtp.port", smtpPort);
-        prop.put("mail.smtp.ssl.trust", smtpSslTrust);
 
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override

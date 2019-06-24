@@ -16,8 +16,8 @@ import pl.jj.app.util.AppException;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(RegisterController.REGISTER_PATH)
-public class RegisterController {
+@RequestMapping(ControllerRegister.REGISTER_PATH)
+public class ControllerRegister {
 
     public static final String REGISTER_PATH = "/register";
     private static final String REGISTER_FORM_MODEL = "registerForm";
@@ -29,10 +29,12 @@ public class RegisterController {
 
     @GetMapping
     public String showRegister(Model model, @RequestParam String token){
+
+        System.out.println(token);
         InviteLink inviteLink = serviceUser.findByToken(token);
 
         if(inviteLink == null){
-            model.addAttribute(REGISTER_ERROR_TOKEN_NOT_FOUND);
+            model.addAttribute(REGISTER_ERROR_TOKEN_NOT_FOUND, true);
         } else {
             RegisterForm registerForm = new RegisterForm();
             registerForm.setRegisterToken(inviteLink.getRegisterToken());

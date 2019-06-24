@@ -8,27 +8,15 @@
     <#include "manager/manager-navbar.ftl">
     <div class="mt-4 container">
 
-        <#if lockSuccess??>
+        <#if successInfo??>
             <div class="alert alert-success" role="alert">
-                Successfully locked!
+                ${successInfo}
             </div>
         </#if>
 
-        <#if lockFail??>
+        <#if failInfo??>
             <div class="alert alert-danger" role="alert">
-                Lock user fail.
-            </div>
-        </#if>
-
-        <#if unlockSuccess??>
-            <div class="alert alert-success" role="alert">
-                Successfully unlocked!
-            </div>
-        </#if>
-
-        <#if unlockFail??>
-            <div class="alert alert-danger" role="alert">
-                Unlock user fail.
+                ${failInfo}
             </div>
         </#if>
 
@@ -39,7 +27,7 @@
             </ol>
         </nav>
 
-        <form method="post" action="/manager/users" name="users">
+        <form method="post" action="/man/users" name="users">
             <div class="card w-100">
                 <div class="card-body">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inviteModalCenter">Send invite link</button>
@@ -72,9 +60,15 @@
                                     <td>${(u.lastName)!''}</td>
                                     <td>${(u.email)!''}</td>
                                     <td>
-                                        <a role="button" href="/manager/users/lock/${(u.id)!''}" class="btn btn-danger">Lock</a>
-                                        <a role="button" href="/manager/users/unlock/${(u.id)!''}" class="btn btn-primary">Unlock</a>
-                                        <a role="button" href="/manager/users/reset/${(u.id)!''}" class="btn btn-danger">Reset password</a>
+                                        <div class="btn-group">
+                                            <#if u.manager == false && u.admin == false>
+                                                <#if u.accountNotLock == true>
+                                                    <a role="button" href="/man/users/lock/${(u.id?c)!''}" class="btn btn-danger">Lock</a>
+                                                <#else>
+                                                    <a role="button" href="/man/users/unlock/${(u.id?c)!''}" class="btn btn-primary">Unlock</a>
+                                                </#if>
+                                            </#if>
+                                        </div>
                                     </td>
                                 </tr>
                             </#list>

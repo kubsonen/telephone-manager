@@ -40,6 +40,7 @@ public class ControllerTelephone {
     private static final String PAGE_PREVIOUS_ATTRIBUTE = "PAGE_PREVIOUS_ATTRIBUTE";
     private static final String PAGE_ACTUAL_ATTRIBUTE = "PAGE_ACTUAL_ATTRIBUTE";
     private static final String PAGE_COUNT_ATTRIBUTE = "PAGE_COUNT_ATTRIBUTE";
+    private static final String IS_MANAGER_ATTRIBUTE = "IS_MANAGER";
 
     private static final String TELEPHONES_QUANTITY = "TELEPHONES_QUANTITY";
 
@@ -68,6 +69,7 @@ public class ControllerTelephone {
 
         //Get login user
         User userLogin = serviceUser.getLoginUser();
+        if(userLogin.isManager()) model.addAttribute(IS_MANAGER_ATTRIBUTE, true);
 
         //Initialize default dictionary values
         if(Const.dicNeedToCreate()) serviceDictionary.initializeDefaultDictionaries();

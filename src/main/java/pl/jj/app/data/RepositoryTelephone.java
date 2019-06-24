@@ -14,7 +14,9 @@ import java.util.Set;
  * @author JNartowicz
  */
 public interface RepositoryTelephone extends CrudRepository<Telephone, Long> {
+
     List<Telephone> findTop10ByOrderByIdDesc();
+    Set<Telephone> findByCreatorIsNull();
 
     String filterTelephoneBaseQuery = "" +
             " from (" +

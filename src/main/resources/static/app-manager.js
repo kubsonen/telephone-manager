@@ -1,7 +1,7 @@
 var inviteWindowAction = {
 
     inviteModalId : 'inviteModalCenter',
-    sendInviteRequestApi : '/manager/users/invite',
+    sendInviteRequestApi : '/man/users/invite',
     sendInviteAction : function () {
         var emailAddress = $('#inviteEmail').val();
         var inviteMail = { mail:   emailAddress };

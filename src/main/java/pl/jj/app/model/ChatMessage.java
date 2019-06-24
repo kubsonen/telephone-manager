@@ -15,7 +15,7 @@ import java.util.Date;
 @Table(name = "chat_message")
 public class ChatMessage extends CommonEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
     private User sender;
 

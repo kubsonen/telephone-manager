@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.jj.app.data.ServiceUser;
+import pl.jj.app.util.Const;
 
 /**
  * @author JNartowicz
@@ -46,9 +47,12 @@ public class Security extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/register/**").permitAll();
-        http.authorizeRequests().antMatchers("/manager/**").hasAnyAuthority("manager");
-        http.authorizeRequests().anyRequest().authenticated().and().formLogin();
+                .antMatchers("/register/**").permitAll()
+                .antMatchers("/login.css").permitAll();
+        http.authorizeRequests().antMatchers("/man/**").hasAnyAuthority(Const.AUTH_MANAGER);
+        http.authorizeRequests().antMatchers("/resetPassword").permitAll();
+        http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll();
+        http.logout().logoutSuccessUrl("/login");
     }
 
 }

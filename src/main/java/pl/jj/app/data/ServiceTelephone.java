@@ -22,6 +22,9 @@ public class ServiceTelephone {
     @Autowired
     private RepositoryTelephone repositoryTelephone;
 
+    @Autowired
+    private RepositoryUser repositoryUser;
+
     @Transactional
     public void addTelephone(Telephone telephone){
         telephone.setPhoneDate(new Date());

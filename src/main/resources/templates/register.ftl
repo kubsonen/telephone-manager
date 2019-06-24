@@ -22,8 +22,8 @@
 
 <div class="container">
 
-    <#if !(registerErrorTokenNotFound??)>
-    <div class="alert alert-danger" role="alert" id="modalErrorContent">Register token not found. <a href="/"><b>Go to index page.</b></b></a></div>
+    <#if registerErrorTokenNotFound??>
+    <div class="alert alert-danger" role="alert">Register token not found. <a href="/"><b>Go to index page.</b></b></a></div>
     <#else>
 
     <div class="card">

@@ -12,20 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "invite_link")
-public class InviteLink extends CommonEntity {
-
-    @Column(name = "expiration_date")
-    private Date expirationDate;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "register_token")
-    private String registerToken;
-
-    @Column(name = "used")
-    private Boolean used;
-
+public class InviteLink extends TokenLink {
 }
 
 

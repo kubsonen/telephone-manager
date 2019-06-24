@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -54,6 +53,10 @@ public final class Const {
     public static final String SPACE = " ";
     public static final String EMPTY = "";
     public static final String DOLLAR = "$";
+
+    //SECUTIRY
+    public static final String AUTH_MANAGER = "manager";
+    public static final String AUTH_ADMIN = "admin";
 
     /**
      * Get the values based on field name.
