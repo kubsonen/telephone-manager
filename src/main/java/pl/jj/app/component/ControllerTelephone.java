@@ -37,6 +37,8 @@ public class ControllerTelephone {
     private static final String ACTUAL_ROWS_ON_PAGE_ATTRIBUTE = "ACTUAL_ROWS_ON_PAGE";
 
     private static final String PAGE_NEXT_ATTRIBUTE = "PAGE_NEXT_ATTRIBUTE";
+    private static final String PAGE_FIRST_ATTRIBUTE = "PAGE_FIRST_ATTRIBUTE";
+    private static final String PAGE_LAST_ATTRIBUTE = "PAGE_LAST_ATTRIBUTE";
     private static final String PAGE_PREVIOUS_ATTRIBUTE = "PAGE_PREVIOUS_ATTRIBUTE";
     private static final String PAGE_ACTUAL_ATTRIBUTE = "PAGE_ACTUAL_ATTRIBUTE";
     private static final String PAGE_COUNT_ATTRIBUTE = "PAGE_COUNT_ATTRIBUTE";
@@ -137,6 +139,16 @@ public class ControllerTelephone {
 
         //Add actual page to the model
         model.addAttribute(PAGE_ACTUAL_ATTRIBUTE, actualPageNum);
+
+        //Add first page attribute
+        if(!(actualPageNum <= 1)){
+            model.addAttribute(PAGE_FIRST_ATTRIBUTE, 1);
+        }
+
+        //Add last page attribute
+        if(!(actualPageNum >= countOfPages)){
+            model.addAttribute(PAGE_LAST_ATTRIBUTE, countOfPages);
+        }
 
         //Add previous page attribute
         if(!(actualPageNum <= 1)){

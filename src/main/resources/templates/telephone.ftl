@@ -137,7 +137,16 @@
 
                     <nav aria-label="Telephones navigation">
                         <ul class="pagination justify-content-center">
-
+                            <li
+                                <#if PAGE_FIRST_ATTRIBUTE??>
+                                    class="page-item"
+                                <#else>
+                                    class="page-item disabled"
+                                </#if>>
+                                <a class="page-link" <#if PAGE_FIRST_ATTRIBUTE??> onclick="nextPage(${PAGE_FIRST_ATTRIBUTE})" </#if> tabindex="-1">
+                                    First
+                                </a>
+                            </li>
                             <li
                                 <#if PAGE_PREVIOUS_ATTRIBUTE??>
                                     class="page-item"
@@ -159,6 +168,16 @@
                                 </#if>>
                                 <a class="page-link" <#if PAGE_NEXT_ATTRIBUTE??> onclick="nextPage(${PAGE_NEXT_ATTRIBUTE})" </#if> tabindex="-1">
                                     Next
+                                </a>
+                            </li>
+                            <li
+                                <#if PAGE_LAST_ATTRIBUTE??>
+                                    class="page-item"
+                                <#else>
+                                    class="page-item disabled"
+                                </#if>>
+                                <a class="page-link" <#if PAGE_LAST_ATTRIBUTE??> onclick="nextPage(${PAGE_LAST_ATTRIBUTE})" </#if> tabindex="-1">
+                                    Last
                                 </a>
                             </li>
                         </ul>
