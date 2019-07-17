@@ -5,11 +5,17 @@ var telephoneAjaxConnector = {
     errorModalId : 'errorModalCenter',
     errorModalMsgContent : 'modalErrorContent',
 
-    postData : function (api, data, callback) {
+    postData : function (api, data, callback, method) {
         var output;
+
+        if(typeof method === "undefined") {
+            method = "POST";
+        }
+
+
         $.ajax({
             url: api,
-            method: "POST",
+            method: method,
             contentType: "application/json",
             data: data,
             success: function(data){

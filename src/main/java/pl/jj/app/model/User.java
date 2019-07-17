@@ -51,6 +51,7 @@ public class User extends CommonEntity implements UserDetails {
 
     @OneToOne
     @JoinColumn(name = "invite_link_id")
+    @JsonIgnore
     private InviteLink inviteLink;
 
     @JsonIgnore
@@ -59,6 +60,7 @@ public class User extends CommonEntity implements UserDetails {
 
     @OneToMany
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private Set<ResetLink> resetLinks;
 
     @Transient

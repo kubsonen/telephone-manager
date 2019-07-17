@@ -42,13 +42,22 @@
                 </div>
                 <!-- col -->
             </div>
-            <!-- row -->
             <div class="row">
-                <div class="col-12">
+                <div class="col-md-9">
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary w-100">Add telephone</button>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <a href="/graphic" class="btn btn-secondary w-100">Modify graphic</a>
+                    </div>
+                </div>
+                <!-- col -->
+            </div>
+            <!-- row -->
+            <div class="row">
+
                 <!-- col -->
             </div>
             <!-- row -->

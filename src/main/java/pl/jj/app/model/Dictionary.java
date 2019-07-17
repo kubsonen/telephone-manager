@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "dictionary")
-public class Dictionary extends CommonEntity{
+public class Dictionary extends CommonEntity {
 
     @Column(name = "name")
     private String name;

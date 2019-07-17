@@ -3,9 +3,11 @@ package pl.jj.app;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.jj.app.model.CalendarCard;
 import pl.jj.app.util.Const;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -17,7 +19,7 @@ public class Tests {
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @Test
-    public void  testDateChanger(){
+    public void testDateChanger() {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         logger.info("Original: " + simpleDateFormat.format(date));
@@ -26,7 +28,7 @@ public class Tests {
     }
 
     @Test
-    public void testGetterFirstDays(){
+    public void testGetterFirstDays() {
 
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
@@ -38,5 +40,38 @@ public class Tests {
 
     }
 
+    @Test
+    public void testDates() {
+        Date date = new Date();
+        System.out.println("Actual date: " + date);
+        System.out.println("Date in change:" + changeDate(date));
+        date = changeDate(date);
+        System.out.println("Date after change: " + date);
+    }
+
+    public Date changeDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_YEAR, 1);
+        return calendar.getTime();
+    }
+
+    @Test
+    public void testingDatesGetMonth() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        for (int i = 0; i < 20; i++) {
+            calendar.add(Calendar.DATE, 1);
+            int m = calendar.get(Calendar.DAY_OF_WEEK);
+            int value = ((m + 12) % 7) + 1;
+            logger.info(new SimpleDateFormat("u").format(calendar.getTime()) + " ===> " + value);
+        }
+    }
+
+    @Test
+    public void testLastDayMonth() {
+        logger.info(new SimpleDateFormat("dd-MM-yyyy").format(CalendarCard.lastDayMonth(new Date())));
+    }
 
 }
