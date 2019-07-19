@@ -15,13 +15,14 @@ public class WebSocket implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic");
-        registry.setApplicationDestinationPrefixes("/chat");
+        registry.enableSimpleBroker("/topic", "/tic-tac-toe-topic");
+        registry.setApplicationDestinationPrefixes("/chat", "/tic-tac-toe-game");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/tm-chat-ws").withSockJS();
+        registry.addEndpoint("/tic-tac-toe-ws").withSockJS();
     }
 
 }

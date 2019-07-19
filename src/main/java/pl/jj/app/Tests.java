@@ -3,12 +3,12 @@ package pl.jj.app;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.jj.app.component.ComponentTicTacToeGame;
 import pl.jj.app.model.CalendarCard;
 import pl.jj.app.util.Const;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author JNartowicz
@@ -74,4 +74,27 @@ public class Tests {
         logger.info(new SimpleDateFormat("dd-MM-yyyy").format(CalendarCard.lastDayMonth(new Date())));
     }
 
+    @Test
+    public void moveCombination() {
+        List<Integer> integerList = Arrays.asList(1,2,3,4,5,6,7,8,9);
+        List<Integer> sumList = new ArrayList<>();
+        ComponentTicTacToeGame componentTicTacToeGame = new ComponentTicTacToeGame();
+//        componentTicTacToeGame.moveCombination(integerList, new Integer[3], sumList, 0,0,3);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

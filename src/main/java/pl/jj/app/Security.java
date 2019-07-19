@@ -51,9 +51,6 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login.css").permitAll();
         http.authorizeRequests().antMatchers("/man/**").hasAnyAuthority(Const.AUTH_MANAGER);
         http.authorizeRequests().antMatchers("/resetPassword").permitAll();
-        http.authorizeRequests().antMatchers("/tic-tac-toe").permitAll();
-        http.authorizeRequests().antMatchers("/tic-tac-toe.css").permitAll();
-        http.authorizeRequests().antMatchers("/tic-tac-toe.js").permitAll();
         http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll();
         http.logout().logoutSuccessUrl("/login");
     }
